@@ -6,6 +6,14 @@ function initializeHeader() {
     const header = document.createElement('div');
     header.setAttribute('id', 'header');
 
+    const logo = document.createElement('i');
+    logo.classList.add('fas', 'fa-list-ul');
+    header.appendChild(logo);
+
+    const title = document.createElement('div');
+    title.innerHTML = 'To-Do';
+    header.appendChild(title);
+
     content.appendChild(header);
 }
 
@@ -13,6 +21,14 @@ function initializeHeader() {
 function initializeMain() {
     const main = document.createElement('div');
     main.setAttribute('id', 'main');
+
+    const sidebar = document.createElement('div');
+    sidebar.setAttribute('id', 'sidebar');
+    main.appendChild(sidebar);
+
+    const mainPage = document.createElement('div');
+    mainPage.setAttribute('id', 'main-page');
+    main.appendChild(mainPage);
 
     content.appendChild(main);
 }
