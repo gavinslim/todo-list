@@ -1,34 +1,49 @@
-
-const content = document.getElementById('content');
+import initSidebar from './sidebar.js';
+import initTaskpage from './taskpage.js';
 
 // Initialize header
-function initializeHeader() {
+function initHeader() {
     const header = document.createElement('div');
     header.setAttribute('id', 'header');
 
+    // Logo and title
+    const leftHeader = document.createElement('div');
+    leftHeader.setAttribute('id', 'left-header');
+
     const logo = document.createElement('i');
-    logo.classList.add('fas', 'fa-list-ul');
-    header.appendChild(logo);
+    logo.classList.add('fas', 'fa-clipboard-list');
+    leftHeader.appendChild(logo);
 
     const title = document.createElement('div');
     title.innerHTML = 'To-Do';
-    header.appendChild(title);
+    leftHeader.appendChild(title);
+    header.appendChild(leftHeader);
+
+    // Github link
+    const github = document.createElement('div');
+    github.setAttribute('id', 'github');
+
+    const link = document.createElement('a');
+    link.href = 'https://github.com/gavinslim';
+    link.target = '_blank';
+    
+    const icon = document.createElement('i');
+    icon.classList.add('fab', 'fa-github');
+
+    link.appendChild(icon);
+    github.appendChild(link);
+    header.appendChild(github);    
 
     content.appendChild(header);
 }
 
 // Initialize main
-function initializeMain() {
+function initMain() {
     const main = document.createElement('div');
     main.setAttribute('id', 'main');
 
-    const sidebar = document.createElement('div');
-    sidebar.setAttribute('id', 'sidebar');
-    main.appendChild(sidebar);
-
-    const mainPage = document.createElement('div');
-    mainPage.setAttribute('id', 'main-page');
-    main.appendChild(mainPage);
+    main.appendChild(initSidebar());
+    main.appendChild(initTaskpage());
 
     content.appendChild(main);
 }
@@ -58,10 +73,9 @@ function initializeFooter() {
     content.appendChild(footer);
 }
 
-function initializeWebpage() {
-    initializeHeader();
-    initializeMain();
-    initializeFooter();
+function initWebpage() {
+    initHeader();
+    initMain();
 }
 
-export default initializeWebpage;
+export default initWebpage;

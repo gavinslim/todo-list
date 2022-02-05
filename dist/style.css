@@ -4,13 +4,14 @@
     --secondary-blue: #7FBFFD;
     --primary-grey: #ededed;
 
-    --header-height: 68px;
-    --footer-height: 42px;
-    --footer-padding: 8px;
+    --header-height: 54px;
+    --footer-height: 0px;
+    --footer-padding: 0px;
     --main-height: calc(100vh - var(--header-height)
                     - calc(var(--footer-height) + var(--footer-padding) + var(--footer-padding))); 
     --sidebar-width: 22vw;
     
+    --header-font: 24px;
     --body-font: 18px;
 }
 
@@ -21,25 +22,34 @@ body {
 
 #header { 
     display: flex;
-    justify-content: flex-start;
+    justify-content: space-between;
     align-items: center;
 
     height: var(--header-height);
-    padding-left: 20px;
+    padding-left: 22px;
+    padding-right: 22px;
     gap: 20px;
 
     position: relative;
-    font-size: 28px;
-    font-weight: bold;
+    font-size: var(--header-font);
+    /* font-weight: bold; */
     background-color: var(--primary-blue);
     color: var(--primary-grey);
     z-index: 1;
 }
 
+#left-header {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    gap: 20px;
+    height: var(--header-height);
+}
+
 #main {
     display: flex;
 
-    margin-bottom: 58px;
+    margin-bottom: calc(var(--footer-height) + 2*var(--footer-padding));
     position: relative;
     min-height: var(--main-height);
 }
@@ -47,6 +57,8 @@ body {
 #sidebar {
     display: flex;
     flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-start;
     background-color: var(--primary-grey);
 
     position: absolute;
@@ -55,11 +67,35 @@ body {
     width: var(--sidebar-width);
     min-height: var(--main-height);
 
-    box-shadow: 5px 0px 10px 1px darkgrey;
+    box-shadow: 5px 0px 10px 1px lightgrey;
     z-index: 0;
 }
 
-#main-page {
+#sidebar_header {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: auto;
+
+
+    padding-top: 42px;
+    padding-left: 20px;
+    padding-bottom: 20px;
+
+    color: var(--primary-blue);
+    font-size: var(--header-font);
+}
+
+.new-proj-btn {
+    background-color: gray;
+    width: var(--sidebar-width);
+    height: 50px;
+    /* border-radius: 50%; */
+    cursor: pointer;
+    color: black;
+}
+
+#task-page {
     display: flex;
     flex-direction: column;
     background-color: white;

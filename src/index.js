@@ -1,3 +1,3 @@
-import initializeWebpage from "./website.js";
+import initWebpage from "./website.js";
 
-initializeWebpage();
+initWebpage();
