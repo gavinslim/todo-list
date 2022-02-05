@@ -77,7 +77,6 @@ body {
     align-items: center;
     width: auto;
 
-
     padding-top: 42px;
     padding-left: 20px;
     padding-bottom: 20px;
@@ -87,12 +86,28 @@ body {
 }
 
 .new-proj-btn {
-    background-color: gray;
-    width: var(--sidebar-width);
-    height: 50px;
-    /* border-radius: 50%; */
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    gap: 12px;
+
     cursor: pointer;
-    color: black;
+
+    /* margin-left: 20px; */
+    height: 42px;
+    min-width: 100%;
+
+    /* border: 1px solid black; */
+    color: var(--primary-blue);
+}
+
+.sidebar-icon {
+    font-size: 22px;
+    padding-left: 20px;
+}
+
+.sidebar-btn:hover {
+    background-color: lightgray;
 }
 
 #task-page {
