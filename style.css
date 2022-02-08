@@ -2,7 +2,8 @@
     --primary-dark: #333;
     --primary-blue: #0E6CC8;
     --secondary-blue: #7FBFFD;
-    --primary-grey: #ededed;
+    --primary-grey: #EDEDED;
+    --secondary-grey: #B5B5B5;
 
     --header-height: 54px;
     --footer-height: 0px;
@@ -11,8 +12,9 @@
                     - calc(var(--footer-height) + var(--footer-padding) + var(--footer-padding))); 
     --sidebar-width: 22vw;
     
-    --header-font: 24px;
-    --body-font: 18px;
+    --header-font: 20px;
+    --body-font: 16px;
+    --icon-font: calc(var(--body-font) + 4px);
 }
 
 body {
@@ -54,6 +56,7 @@ body {
     min-height: var(--main-height);
 }
 
+/* Sidebar */
 #sidebar {
     display: flex;
     flex-direction: column;
@@ -81,35 +84,68 @@ body {
     padding-left: 20px;
     padding-bottom: 20px;
 
-    color: var(--primary-blue);
+    color: var(--primary-dark);
     font-size: var(--header-font);
 }
 
-.new-proj-btn {
+.sidebar-icon {
+    font-size: var(--icon-font);
+    padding-left: 20px;
+    color: var(--secondary-grey);
+}
+
+.sidebar-btn {
+    height: 40px;
+    cursor: pointer;
+}
+
+.sidebar-btn:hover {
+    background-color: white;
+}
+
+#new-proj-comp {
+    display: flex;
+}
+
+#new-proj-sub-comp {
     display: flex;
     justify-content: flex-start;
     align-items: center;
     gap: 12px;
 
-    cursor: pointer;
-
-    /* margin-left: 20px; */
-    height: 42px;
-    min-width: 100%;
-
-    /* border: 1px solid black; */
+    width: 100%;
     color: var(--primary-blue);
 }
 
-.sidebar-icon {
-    font-size: 22px;
-    padding-left: 20px;
+#new-proj-sub-comp-input {
+    height: 40px;
+    border: none;
+    outline: none;
+    background-color: transparent;
+    font-size: var(--body-font);
+    color: var(--primary-dark);
+    width: 100%;
 }
 
-.sidebar-btn:hover {
-    background-color: lightgray;
+#new-proj-sub-comp-input::placeholder {
+    color: var(--primary-blue);
 }
 
+#new-proj-sub-comp-input:focus::placeholder {
+    color: var(--secondary-grey);
+}
+
+#new-proj-btn {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: var(--icon-font);
+    color: var(--primary-blue);
+    padding-left: 12px;
+    cursor: pointer;
+}
+
+/* Task page */
 #task-page {
     display: flex;
     flex-direction: column;
@@ -146,9 +182,17 @@ body {
 .fa-github {
     color: var(--primary-grey);
     transition: 0.5s ease;
-    font-size: 32px;
+    font-size: calc(var(--header-font) + 8px);
 }
 
 .fa-github:hover {
     transform: scale(1.2) rotate(360deg);
+}
+
+.disable-select {
+    user-select: none; /* supported by Chrome and Opera */
+   -webkit-user-select: none; /* Safari */
+   -khtml-user-select: none; /* Konqueror HTML */
+   -moz-user-select: none; /* Firefox */
+   -ms-user-select: none; /* Internet Explorer/Edge */
 }
