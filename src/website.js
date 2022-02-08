@@ -16,6 +16,7 @@ function initHeader() {
 
     const title = document.createElement('div');
     title.innerHTML = 'To-Do';
+    title.classList.add('disable-select');
     leftHeader.appendChild(title);
     header.appendChild(leftHeader);
 
