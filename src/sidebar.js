@@ -1,3 +1,6 @@
+// import foo from './project.js';
+
+
 // Load sidebar header
 function loadSidebarHeader() {
     const sidebarHeader = document.createElement('div');
@@ -8,10 +11,13 @@ function loadSidebarHeader() {
 }
 
 // Load sidebar project list 
-function loadSidebarList() {
+function loadProjectList() {
     const sidebarList = document.createElement('div');
-    sidebarList.classList.add('sidebar-list');
-    sidebarList.appendChild(loadNewProjComponent());
+    sidebarList.classList.add('project-list');
+
+    const projects = JSON.parse(localStorage.getItem('projects')) || [];
+    populateProjList(projects, sidebarList);
+
     return sidebarList;
 }
 
@@ -59,9 +65,11 @@ function loadNewProjSubComponent() {
         } else {
             if (e.key != 'Enter') {return;}
             addProjectToStorage();
+            input.value = '';
         }
     });
 
+    
     return newProjSubComp;
 }
 
@@ -77,13 +85,29 @@ function loadNewProjBtn() {
 
 // Add new project to database
 function addProjectToStorage() {
-    const projectName = document.getElementById('new-proj-sub-comp-input').value;
-    
+    var projectName = document.getElementById('new-proj-sub-comp-input').value;
+    var projectList = document.querySelector('.project-list');
+    const projects = JSON.parse(localStorage.getItem('projects')) || [];
+
     if (projectName == '') {
-        console.log('Untitled');
-    } else {
-        console.log(projectName);
+        projectName = 'Untitled';
     }
+    
+    projects.push(projectName);
+    populateProjList(projects, projectList);
+    localStorage.setItem('projects', JSON.stringify(projects));
+}
+
+// Populate project list
+function populateProjList(projects = [], projectList) {
+    projectList.innerHTML = projects.map((project, i) => {
+        return `
+            <div class='project' id="${i}">
+                <i class='fas fa-list project-icon'></i>
+                <div class='project-name'>${project}</div>
+            </div>
+        `
+    }).join('');
 }
 
 // Initialize sidebar
@@ -93,7 +117,8 @@ function initSidebar() {
     sidebar.setAttribute('id', 'sidebar');
     
     sidebar.appendChild(loadSidebarHeader());
-    sidebar.appendChild(loadSidebarList());
+    sidebar.appendChild(loadProjectList());
+    sidebar.appendChild(loadNewProjComponent());
 
     return sidebar;
 }

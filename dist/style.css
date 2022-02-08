@@ -142,7 +142,34 @@ body {
     font-size: var(--icon-font);
     color: var(--primary-blue);
     padding-left: 12px;
+    padding-right: 12px;
     cursor: pointer;
+}
+
+/* Sidebar: Project list */
+.project {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    cursor: pointer;
+    height: 40px;
+    gap: 12px;
+
+    width: 100%;
+}
+
+.project-name {
+    background-color: transparent;
+    font-size: var(--body-font);
+    color: var(--primary-dark);
+    width: 100%;
+    border: 1px solid black;
+}
+
+.project-icon {
+    font-size: var(--icon-font);
+    padding-left: 20px;
+    color: var(--primary-blue);
 }
 
 /* Task page */
