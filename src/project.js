@@ -33,11 +33,10 @@ function populateProjList(projects = [], projectList) {
     //         <div>${project.name}</div>
     //     `
     // }).join('');
-    console.log('hello');
 }
 
 function foo() {
     console.log('foo');
 }
 
-export default {foo};
+export default foo;

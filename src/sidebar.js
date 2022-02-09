@@ -1,6 +1,5 @@
 // import foo from './project.js';
 
-
 // Load sidebar header
 function loadSidebarHeader() {
     const sidebarHeader = document.createElement('div');
@@ -14,11 +13,38 @@ function loadSidebarHeader() {
 function loadProjectList() {
     const sidebarList = document.createElement('div');
     sidebarList.classList.add('project-list');
+    sidebarList.addEventListener('click', activateProjectBtns);
 
     const projects = JSON.parse(localStorage.getItem('projects')) || [];
     populateProjList(projects, sidebarList);
 
     return sidebarList;
+}
+
+function activateProjectBtns(e) {
+    if (!e.target.matches('i')) return;
+    
+    const projectList = e.currentTarget;
+    const projects = JSON.parse(localStorage.getItem('projects')) || [];
+    const classList = e.target.classList;
+
+    const selectedProject = e.target.parentNode.parentNode;
+    const index = selectedProject.dataset.index;  
+
+    // Delete project
+    if (classList.contains('delete-icon')) {
+        projects.splice(index, 1);
+        localStorage.setItem('projects', JSON.stringify(projects));
+    }
+
+    // Edit project
+    if (classList.contains('edit-icon')) {
+
+    }
+
+    // Populate project-list 
+    populateProjList(projects, projectList);
+
 }
 
 // Load new project component
@@ -68,7 +94,6 @@ function loadNewProjSubComponent() {
             input.value = '';
         }
     });
-
     
     return newProjSubComp;
 }
@@ -102,9 +127,15 @@ function addProjectToStorage() {
 function populateProjList(projects = [], projectList) {
     projectList.innerHTML = projects.map((project, i) => {
         return `
-            <div class='project' id="${i}">
-                <i class='fas fa-list project-icon'></i>
-                <div class='project-name'>${project}</div>
+            <div class='project' data-index="${i}">
+                <div class='project-left'>
+                    <i class='fas fa-list project-icon'></i>
+                    <div class='project-name'>${project}</div>
+                </div>
+                <div class='project-right'>
+                    <i class='fas fa-pencil-alt edit-icon'></i>
+                    <i class='fas fa-trash-alt delete-icon'></i>
+                </div>
             </div>
         `
     }).join('');

@@ -1,5 +1,5 @@
 :root {
-    --primary-dark: #333;
+    --primary-dark: #5a5a5a;
     --primary-blue: #0E6CC8;
     --secondary-blue: #7FBFFD;
     --primary-grey: #EDEDED;
@@ -10,8 +10,8 @@
     --footer-padding: 0px;
     --main-height: calc(100vh - var(--header-height)
                     - calc(var(--footer-height) + var(--footer-padding) + var(--footer-padding))); 
-    --sidebar-width: 22vw;
-    
+    /* --sidebar-width: 22vw; */
+    --sidebar-width: 307px;
     --header-font: 20px;
     --body-font: 16px;
     --icon-font: calc(var(--body-font) + 4px);
@@ -67,7 +67,7 @@ body {
     position: absolute;
     top: 0;
     left: 0;
-    width: var(--sidebar-width);
+    min-width: var(--sidebar-width);
     min-height: var(--main-height);
 
     box-shadow: 5px 0px 10px 1px lightgrey;
@@ -105,6 +105,7 @@ body {
 
 #new-proj-comp {
     display: flex;
+    /* border: 1px solid black; */
 }
 
 #new-proj-sub-comp {
@@ -147,29 +148,72 @@ body {
 }
 
 /* Sidebar: Project list */
+.project-list {
+    display: flex;
+    flex-direction: column;
+    width: var(--sidebar-width);
+}
+
 .project {
     display: flex;
-    justify-content: flex-start;
+    justify-content: space-between;
     align-items: center;
     cursor: pointer;
     height: 40px;
     gap: 12px;
 
-    width: 100%;
+    /* min-width: var(--sidebar-width); */
+    /* min-width: 50px; */
+    /* border: 1px solid blue; */
+}
+
+.project:hover {
+    background-color: white;
+}
+
+.project-left {
+    display: flex;
+    gap: 12px;
 }
 
 .project-name {
     background-color: transparent;
     font-size: var(--body-font);
     color: var(--primary-dark);
-    width: 100%;
-    border: 1px solid black;
+    /* width: 100%; */
+    /* border: 1px solid black; */
 }
 
 .project-icon {
     font-size: var(--icon-font);
     padding-left: 20px;
     color: var(--primary-blue);
+}
+
+.project-right {
+    display: flex;
+    gap: 14px;
+    padding-right: 14px;
+}
+
+.edit-icon, .delete-icon {
+    font-size: var(--icon-font);
+    color: var(--secondary-grey);
+    cursor: pointer;
+    visibility: hidden;
+}
+
+.project:hover .edit-icon, 
+.project:hover .delete-icon {
+    visibility: visible;
+}
+
+.edit-icon:hover {
+    color: orange;
+}
+
+.delete-icon:hover {
+    color: red;
 }
 
 /* Task page */
