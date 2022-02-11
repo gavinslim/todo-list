@@ -1,9 +1,10 @@
 :root {
     --primary-dark: #5a5a5a;
-    --primary-blue: #0E6CC8;
-    --secondary-blue: #7FBFFD;
-    --primary-grey: #EDEDED;
-    --secondary-grey: #B5B5B5;
+    --primary-blue: #0e6cc8;
+    --secondary-blue: #7fbffd;
+    --primary-grey: #eeeeee;
+    --secondary-grey: #b5b5b5;
+    --tertiary-grey: #dddddd;
 
     --header-height: 54px;
     --footer-height: 0px;
@@ -161,14 +162,14 @@ body {
     cursor: pointer;
     height: 40px;
     gap: 12px;
-
-    /* min-width: var(--sidebar-width); */
-    /* min-width: 50px; */
-    /* border: 1px solid blue; */
 }
 
 .project:hover {
     background-color: white;
+}
+
+.project.active {
+    background-color: var(--tertiary-grey);
 }
 
 .project-left {
@@ -180,8 +181,10 @@ body {
     background-color: transparent;
     font-size: var(--body-font);
     color: var(--primary-dark);
-    /* width: 100%; */
-    /* border: 1px solid black; */
+}
+
+.project.active .project-name {
+    color: var(--primary-blue);
 }
 
 .project-icon {
@@ -208,11 +211,11 @@ body {
     visibility: visible;
 }
 
-.edit-icon:hover {
+.edit-icon:hover, .edit-icon:active {
     color: orange;
 }
 
-.delete-icon:hover {
+.delete-icon:hover, .delete-icon:active {
     color: red;
 }
 
@@ -228,6 +231,21 @@ body {
     width: calc(100vw - var(--sidebar-width));
     min-height: var(--main-height);
     z-index: -1;
+}
+
+#task-header {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    width: auto;
+
+    padding-top: 42px;
+    padding-left: 24px;
+    padding-bottom: 20px;
+
+    color: var(--primary-dark);
+    font-size: var(--header-font);
+    /* border: 1px solid black; */
 }
 
 #footer {
