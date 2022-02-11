@@ -1,4 +1,4 @@
-// import foo from './project.js';
+import Task from './task.js';
 
 // Load sidebar header
 function loadSidebarHeader() {
@@ -14,7 +14,6 @@ function loadProjectList() {
     const sidebarList = document.createElement('div');
     sidebarList.classList.add('project-list');
     sidebarList.addEventListener('click', (e) => {
-        // activateProject(e);
         if (e.target.classList.contains('project')) activateProject(e);
         if (e.target.matches('i')) modifyProject(e);
     });
@@ -25,10 +24,10 @@ function loadProjectList() {
     return sidebarList;
 }
 
+// Highlight project when clicked
 function activateProject(e) {
     if (e.target.classList.contains('active')) return;
 
-    // Remove active from all projects 
     const projects = document.querySelectorAll('.project');
     projects.forEach(project => {
         if (project !== this) {
@@ -37,9 +36,6 @@ function activateProject(e) {
     });
 
     e.target.classList.add('active');
-
-    // const project = e.target;
-    // console.log(project)
 }
 
 function modifyProject(e) {

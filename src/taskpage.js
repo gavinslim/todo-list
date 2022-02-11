@@ -12,11 +12,6 @@ function loadTaskHeader() {
     const taskHeader = document.createElement('div');
     taskHeader.setAttribute('id', 'task-header');
     taskHeader.textContent = 'Tasks';
-    // var projectList = document.querySelector('.project-list');
-
-    // projectList.forEach(project => {
-    //     console.log(project);
-    // });
 
     return taskHeader;
 }
