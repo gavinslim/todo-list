@@ -13,7 +13,11 @@ function loadSidebarHeader() {
 function loadProjectList() {
     const sidebarList = document.createElement('div');
     sidebarList.classList.add('project-list');
-    sidebarList.addEventListener('click', activateProjectBtns);
+    sidebarList.addEventListener('click', (e) => {
+        // activateProject(e);
+        if (e.target.classList.contains('project')) activateProject(e);
+        if (e.target.matches('i')) modifyProject(e);
+    });
 
     const projects = JSON.parse(localStorage.getItem('projects')) || [];
     populateProjList(projects, sidebarList);
@@ -21,9 +25,24 @@ function loadProjectList() {
     return sidebarList;
 }
 
-function activateProjectBtns(e) {
-    if (!e.target.matches('i')) return;
-    
+function activateProject(e) {
+    if (e.target.classList.contains('active')) return;
+
+    // Remove active from all projects 
+    const projects = document.querySelectorAll('.project');
+    projects.forEach(project => {
+        if (project !== this) {
+            project.classList.remove('active');
+        }
+    });
+
+    e.target.classList.add('active');
+
+    // const project = e.target;
+    // console.log(project)
+}
+
+function modifyProject(e) {
     const projectList = e.currentTarget;
     const projects = JSON.parse(localStorage.getItem('projects')) || [];
     const classList = e.target.classList;

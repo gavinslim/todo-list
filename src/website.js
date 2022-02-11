@@ -1,5 +1,4 @@
 import initSidebar from './sidebar.js';
-// import loadSidebarFunctions from './sidebar.js';
 import initTaskpage from './taskpage.js';
 
 // Initialize header
