@@ -16,7 +16,7 @@ function loadDefaultProjects() {
     defaultList.classList.add('default-list');
     
     addDefaultProject(defaultList, 'Important', 'far fa-star');
-    addDefaultProject(defaultList, 'Tasks', 'fas fa-home');
+    addDefaultProject(defaultList, 'Tasks', 'fas fa-home', true);
     
     defaultList.addEventListener('click', (e) => {
         activateProject(e);
@@ -25,7 +25,7 @@ function loadDefaultProjects() {
     return defaultList;
 }
 
-function addDefaultProject(defaultList, name, icon) {
+function addDefaultProject(defaultList, name, icon, activate = false) {
     
     const projectContents = JSON.parse(localStorage.getItem(name)) || [];
     if (projectContents.length === 0) {
@@ -35,12 +35,14 @@ function addDefaultProject(defaultList, name, icon) {
         localStorage.setItem(name, JSON.stringify(projectContents));
     } 
 
+    const classList = activate == true ? "default-project active" : "default-project"; 
+
     defaultList.innerHTML += `
-    <div class="default-project">
-        <i class="${icon} project-icon"></i>
-        <div class="project-name">${name}</div>
-    </div>
-    `;     
+        <div class="${classList}">
+            <i class="${icon} project-icon"></i>
+            <div class="project-name">${name}</div>
+        </div>
+        `;     
 }
 
 // Load sidebar project list 
