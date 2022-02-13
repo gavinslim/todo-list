@@ -1,4 +1,3 @@
-import Task from './task.js';
 import Project from './project.js';
 
 // Load sidebar header
@@ -27,18 +26,21 @@ function loadDefaultProjects() {
 }
 
 function addDefaultProject(defaultList, name, icon) {
-    const project = Project(name);
+    
     const projectContents = JSON.parse(localStorage.getItem(name)) || [];
-    projectContents.push(project.toJSON());
+    if (projectContents.length === 0) {
+        console.log('Initializing default projects');
+        const project = Project(name);
+        projectContents.push(project.toJSON());   
+        localStorage.setItem(name, JSON.stringify(projectContents));
+    } 
 
     defaultList.innerHTML += `
-        <div class="default-project">
-            <i class="${icon} project-icon"></i>
-            <div class="default-name">${name}</div>
-        </div>
-    `; 
-
-    localStorage.setItem(name, JSON.stringify(projectContents));
+    <div class="default-project">
+        <i class="${icon} project-icon"></i>
+        <div class="project-name">${name}</div>
+    </div>
+    `;     
 }
 
 // Load sidebar project list 
@@ -58,27 +60,34 @@ function loadProjectList() {
 
 // Highlight project when clicked
 function activateProject(e) {
-    console.log(e.target);
+    // console.log(e.target);
 
     if (e.target.classList.contains('active')) return;
 
-    // Remove active class from default-project selectors
-    const defaultProjects = document.querySelectorAll('.default-project');
-    defaultProjects.forEach(project => {
-        if (project !== this) {
-            project.classList.remove('active');
-        }
-    });
+    // Remove active class
+    removeActiveClass('default-project');
+    removeActiveClass('project');
 
-    // Remove active class from project selectors
-    const projects = document.querySelectorAll('.project');
+    // Populate taskpage
+    populateTaskpage(e);
+
+    e.target.classList.add('active');
+}
+
+function populateTaskpage(e) {
+    const taskList = document.querySelector('.task-list');
+    
+    console.log(e.target);
+}
+
+// Remove active class from selector
+function removeActiveClass(selector) {
+    const projects = document.querySelectorAll(`.${selector}`);
     projects.forEach(project => {
         if (project !== this) {
             project.classList.remove('active');
         }
     });
-
-    e.target.classList.add('active');
 }
 
 function modifyProject(e) {
