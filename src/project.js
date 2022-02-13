@@ -1,42 +1,28 @@
-// const projectList = document.querySelector('.project-list');
-// const projects = JSON.parse(localStorage.getItem('projects')) || [];
+export default (name) => {
+    var name = name;
+    var tasks = [];
 
-const Task = (name) => {
-    let info = {
-        name,
-        priority: 0,
-        deadline: 0,
-        status: 'Not Started'
+    function getName() {
+        return name;
     }
 
-    const getName = () => {console.log('Task name is ' + info.name)};
-    return {getName}
-}
-
-const Project = (name) => {
-    let name = name;
-    let taskList = [];
-
-    const getName = () => {return name;}
-
-    const addTask = (taskName) => {
-        const newTask = Task(taskName);
-        taskList.push(newTask);
+    function addTask(task) {
+        tasks.push(task);
     }
 
-    return {getName, addTask}
-}
+    function removeTask(task) {
+        tasks.find(name);
+    }
 
-function populateProjList(projects = [], projectList) {
-    // projectList.innerHTML = projects.map((project, i) => {
-    //     return `
-    //         <div>${project.name}</div>
-    //     `
-    // }).join('');
-}
+    // Required method for adding private variables to localStorage
+    function toJSON() {
+        return {name, tasks};
+    }
 
-function foo() {
-    console.log('foo');
+    return {
+        getName,
+        addTask,
+        removeTask,
+        toJSON,
+    };
 }
-
-export default foo;
