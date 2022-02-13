@@ -11,7 +11,7 @@
     --footer-padding: 0px;
     --main-height: calc(100vh - var(--header-height)
                     - calc(var(--footer-height) + var(--footer-padding) + var(--footer-padding))); 
-    --sidebar-width: 307px;
+    --sidebar-width: 290px;
     --header-font: 20px;
     --body-font: 14px;
     --icon-font: calc(var(--body-font) + 4px);
@@ -106,6 +106,7 @@ body {
 
 #new-proj-comp {
     display: flex;
+    width: 100%;
 }
 
 #new-proj-sub-comp {
@@ -158,12 +159,6 @@ body {
     height: 40px;
     gap: 12px;
     width: var(--sidebar-width);
-}
-
-.default-name{
-    background-color: transparent;
-    font-size: var(--body-font);
-    color: var(--primary-dark);
 }
 
 /* Sidebar: Project list */
