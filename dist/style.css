@@ -319,6 +319,11 @@ body {
     border-bottom: 1px solid var(--primary-blue);
 }
 
+.task {
+    display: flex;
+    
+}
+
 #footer {
     position: absolute;
     bottom: 0;

@@ -17,7 +17,7 @@ function loadDefaultProjects() {
     
     addDefaultProject(defaultList, 'Important', 'far fa-star');
     addDefaultProject(defaultList, 'Tasks', 'fas fa-home', true);
-    
+
     defaultList.addEventListener('click', (e) => {
         activateProject(e);
     });
@@ -29,7 +29,6 @@ function addDefaultProject(defaultList, name, icon, activate = false) {
     
     const projectContents = JSON.parse(localStorage.getItem(name)) || [];
     if (projectContents.length === 0) {
-        console.log('Initializing default projects');
         const project = Project(name);
         projectContents.push(project.toJSON());   
         localStorage.setItem(name, JSON.stringify(projectContents));
@@ -54,6 +53,10 @@ function loadProjectList() {
         if (e.target.matches('i')) modifyProject(e);
     });
 
+    // for (var i = 0; i < localStorage.length; i++) {
+    //     console.log(localStorage.key(i));
+    // }
+
     const projects = JSON.parse(localStorage.getItem('projects')) || [];
     populateProjList(projects, projectList);
 
@@ -62,8 +65,6 @@ function loadProjectList() {
 
 // Highlight project when clicked
 function activateProject(e) {
-    // console.log(e.target);
-
     if (e.target.classList.contains('active')) return;
 
     // Remove active class
@@ -77,9 +78,26 @@ function activateProject(e) {
 }
 
 function populateTaskpage(e) {
+    const projectName = e.target.querySelector('.project-name').innerHTML;
+    const projectContents = JSON.parse(localStorage.getItem(projectName)) || [];
     const taskList = document.querySelector('.task-list');
-    
-    console.log(e.target);
+
+    populateTaskList(projectContents, taskList);
+}
+
+function populateTaskList(projectContents, taskList) {
+    console.log(projectContents);
+    // const temps = projectContents[0].tasks;
+    // console.log(temps);
+    // taskList.innerHTML = temps.map(task => {
+    //     return `
+    //         <div class="task">
+    //             <div class='task-description'>${task.description}</div>
+    //             <div class='task-priority'>${task.priority}</div>
+    //             <div class='task-dueDate'>${task.dueDate}</div>
+    //         </div>
+    //     `
+    // }).join('');
 }
 
 // Remove active class from selector
