@@ -20,9 +20,14 @@ export default (description) => {
         console.log(dueDate);
     }
 
+    function toJSON() {
+        return {description, priority, dueDate, isComplete};
+    }
+
     return {
         getDescription,
         getPriority,
         getDueDate,
+        toJSON,
     };
 }
