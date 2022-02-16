@@ -1,3 +1,3 @@
 import initWebpage from "./website.js";
 
-initWebpage();
+document.addEventListener('DOMContentLoaded', initWebpage());
