@@ -1,3 +1,5 @@
+import Task from './task.js';
+import Project from './project.js';
 
 function initTaskpage() {
     const taskPage = document.createElement('div');
@@ -46,9 +48,7 @@ function loadNewTaskComponent() {
             return;
         } else {
             if (e.key != 'Enter') {return;}
-            // Add to project
             addTaskToProject();
-
             input.value = '';
         }
     });
@@ -57,16 +57,47 @@ function loadNewTaskComponent() {
 }
 
 function addTaskToProject() {
-    const temp = document.querySelectorAll('.project');
-    console.log(temp);
+    const activeProject = document.querySelector('.active');
+    const projectName = activeProject.querySelector('.project-name').innerHTML;
+    const taskInput = document.querySelector('#new-task-input');
+    const taskList = document.querySelector('.task-list');
+
+    // Create task object
+    // if (taskInput == '') return;
+    const task = Task(taskInput.value);
+
+    // Retrieve project from localStorage and save task to project
+    const projectContents = JSON.parse(localStorage.getItem(projectName)) || [];
+    projectContents[0].tasks.push(task.toJSON());
+
+    // Update project in localStorage
+    localStorage.setItem(projectName, JSON.stringify(projectContents));
+
+    // Update taskpage
+    populateTaskList(projectContents, taskList);
+}
+
+function populateTaskList(projectContents, taskList) {
+    const temps = projectContents[0].tasks;
+    console.log(temps);
+    taskList.innerHTML = temps.map(task => {
+        return `
+            <div class="task">
+                <div class='task-description'>${task.description}</div>
+                <div class='task-priority'>${task.priority}</div>
+                <div class='task-dueDate'>${task.dueDate}</div>
+            </div>
+        `
+    }).join('');
 }
 
 function loadTaskList() {
     const taskList = document.createElement('div');
     taskList.classList.add('task-list');
 
-    const projects = document.getElementsByClassName('project-list');
+    // const projects = document.querySelector('.project-list');
     // console.log(projects);
+
     return taskList;
 }
 
