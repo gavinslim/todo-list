@@ -1,5 +1,4 @@
 import Task from './task.js';
-import Project from './project.js';
 
 function initTaskpage() {
     const taskPage = document.createElement('div');
@@ -58,29 +57,39 @@ function loadNewTaskComponent() {
 
 function addTaskToProject() {
     const activeProject = document.querySelector('.active');
-    const projectName = activeProject.querySelector('.project-name').innerHTML;
+    const project = activeProject.querySelector('.project-name');
     const taskInput = document.querySelector('#new-task-input');
     const taskList = document.querySelector('.task-list');
 
     // Create task object
-    // if (taskInput == '') return;
+    if (taskInput == '') return;
     const task = Task(taskInput.value);
 
+    // Check with type of project 
+    const type = project.classList.contains('default') ? 'default' : 'projects';
+
     // Retrieve project from localStorage and save task to project
-    const projectContents = JSON.parse(localStorage.getItem(projectName)) || [];
-    projectContents[0].tasks.push(task.toJSON());
+    const projects = JSON.parse(localStorage.getItem(type)) || [];
+    const index = projects.findIndex(storedProject => storedProject.name == project.innerHTML);
+    projects[index].tasks.push(task.toJSON());
 
     // Update project in localStorage
-    localStorage.setItem(projectName, JSON.stringify(projectContents));
+    localStorage.setItem(type, JSON.stringify(projects));
 
     // Update taskpage
-    populateTaskList(projectContents, taskList);
+    refreshTaskpage();
 }
 
-function populateTaskList(projectContents, taskList) {
-    const temps = projectContents[0].tasks;
-    console.log(temps);
-    taskList.innerHTML = temps.map(task => {
+function refreshTaskpage() {
+    const activeProject = document.querySelector('.active');
+    const project = activeProject.querySelector('.project-name');
+    const taskList = document.querySelector('.task-list');
+    const type = project.classList.contains('default') ? 'default' : 'projects';
+
+    const projects = JSON.parse(localStorage.getItem(type)) || [];
+    const index = projects.findIndex(storedProject => storedProject.name == project.innerHTML);
+
+    taskList.innerHTML = projects[index].tasks.map(task => {
         return `
             <div class="task">
                 <div class='task-description'>${task.description}</div>
@@ -94,9 +103,6 @@ function populateTaskList(projectContents, taskList) {
 function loadTaskList() {
     const taskList = document.createElement('div');
     taskList.classList.add('task-list');
-
-    // const projects = document.querySelector('.project-list');
-    // console.log(projects);
 
     return taskList;
 }

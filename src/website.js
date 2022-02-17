@@ -77,6 +77,27 @@ function initializeFooter() {
 function initWebpage() {
     initHeader();
     initMain();
+    refreshTaskpage();
+}
+
+function refreshTaskpage() {
+    const activeProject = document.querySelector('.active');
+    const project = activeProject.querySelector('.project-name');
+    const taskList = document.querySelector('.task-list');
+    const type = project.classList.contains('default') ? 'default' : 'projects';
+
+    const projects = JSON.parse(localStorage.getItem(type)) || [];
+    const index = projects.findIndex(storedProject => storedProject.name == project.innerHTML);
+
+    taskList.innerHTML = projects[index].tasks.map(task => {
+        return `
+            <div class="task">
+                <div class='task-description'>${task.description}</div>
+                <div class='task-priority'>${task.priority}</div>
+                <div class='task-dueDate'>${task.dueDate}</div>
+            </div>
+        `
+    }).join('');
 }
 
 export default initWebpage;
