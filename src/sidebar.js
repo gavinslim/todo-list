@@ -15,8 +15,8 @@ function loadDefaultProjects() {
     const defaultList = document.createElement('div');
     defaultList.classList.add('default-list');
     
-    addDefaultProject(defaultList, 'Important', 'far fa-star');
-    addDefaultProject(defaultList, 'Tasks', 'fas fa-home', true);
+    addDefaultToStorage(defaultList, 'Important', 'far fa-star');
+    addDefaultToStorage(defaultList, 'Tasks', 'fas fa-home', true);
 
     defaultList.addEventListener('click', (e) => {
         activateProject(e);
@@ -25,23 +25,35 @@ function loadDefaultProjects() {
     return defaultList;
 }
 
-function addDefaultProject(defaultList, name, icon, activate = false) {
+function addDefaultToStorage(defaultList, name, icon, activate = false) {
     
-    const projectContents = JSON.parse(localStorage.getItem(name)) || [];
-    if (projectContents.length === 0) {
+    const defaults = JSON.parse(localStorage.getItem('default')) || [];
+
+    // Check if project exists in localStorage
+    const found = defaults.some(project => project.name === name);
+    if (!found) {
+        // Add to storage
         const project = Project(name);
-        projectContents.push(project.toJSON());   
-        localStorage.setItem(name, JSON.stringify(projectContents));
-    } 
+        defaults.push(project.toJSON());  
+        localStorage.setItem('default', JSON.stringify(defaults));    
+    };
 
     const classList = activate == true ? "default-project active" : "default-project"; 
 
     defaultList.innerHTML += `
         <div class="${classList}">
             <i class="${icon} project-icon"></i>
-            <div class="project-name">${name}</div>
+            <div class="project-name default">${name}</div>
         </div>
-        `;     
+    `;   
+
+    // if (activate) {
+    //     const index = defaults.findIndex(storedProject => storedProject.name == name);
+    //     const taskList = document.querySelector('.task-list');
+    //     console.log(taskList);
+    //     // populateTaskList(defaults[index], taskList);
+    // }
+
 }
 
 // Load sidebar project list 
@@ -52,10 +64,6 @@ function loadProjectList() {
         if (e.target.classList.contains('project')) activateProject(e);
         if (e.target.matches('i')) modifyProject(e);
     });
-
-    // for (var i = 0; i < localStorage.length; i++) {
-    //     console.log(localStorage.key(i));
-    // }
 
     const projects = JSON.parse(localStorage.getItem('projects')) || [];
     populateProjList(projects, projectList);
@@ -78,26 +86,29 @@ function activateProject(e) {
 }
 
 function populateTaskpage(e) {
-    const projectName = e.target.querySelector('.project-name').innerHTML;
-    const projectContents = JSON.parse(localStorage.getItem(projectName)) || [];
+    const project = e.target.querySelector('.project-name');
     const taskList = document.querySelector('.task-list');
 
-    populateTaskList(projectContents, taskList);
+    // Check with type of project 
+    const type = project.classList.contains('default') ? 'default' : 'projects';
+    
+    // Retrieve project from localStorage and save task to project
+    const projects = JSON.parse(localStorage.getItem(type)) || [];
+    const index = projects.findIndex(storedProject => storedProject.name == project.innerHTML);
+
+    populateTaskList(projects[index], taskList);
 }
 
-function populateTaskList(projectContents, taskList) {
-    console.log(projectContents);
-    // const temps = projectContents[0].tasks;
-    // console.log(temps);
-    // taskList.innerHTML = temps.map(task => {
-    //     return `
-    //         <div class="task">
-    //             <div class='task-description'>${task.description}</div>
-    //             <div class='task-priority'>${task.priority}</div>
-    //             <div class='task-dueDate'>${task.dueDate}</div>
-    //         </div>
-    //     `
-    // }).join('');
+function populateTaskList(project, taskList) {
+    taskList.innerHTML = project.tasks.map(task => {
+        return `
+            <div class="task">
+                <div class='task-description'>${task.description}</div>
+                <div class='task-priority'>${task.priority}</div>
+                <div class='task-dueDate'>${task.dueDate}</div>
+            </div>
+        `
+    }).join('');
 }
 
 // Remove active class from selector
@@ -237,7 +248,7 @@ function initSidebar() {
     sidebar.appendChild(loadDefaultProjects());
     sidebar.appendChild(loadProjectList());
     sidebar.appendChild(loadNewProjComponent());
-
+    
     return sidebar;
 }
 
