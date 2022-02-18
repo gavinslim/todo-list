@@ -46,14 +46,6 @@ function addDefaultToStorage(defaultList, name, icon, activate = false) {
             <div class="project-name default">${name}</div>
         </div>
     `;   
-
-    // if (activate) {
-    //     const index = defaults.findIndex(storedProject => storedProject.name == name);
-    //     const taskList = document.querySelector('.task-list');
-    //     console.log(taskList);
-    //     // populateTaskList(defaults[index], taskList);
-    // }
-
 }
 
 // Load sidebar project list 
@@ -104,8 +96,8 @@ function populateTaskList(project, taskList) {
         return `
             <div class="task">
                 <div class='task-description'>${task.description}</div>
-                <div class='task-priority'>${task.priority}</div>
                 <div class='task-dueDate'>${task.dueDate}</div>
+                <i class='fas fa-trash-alt delete-icon'></i>
             </div>
         `
     }).join('');
@@ -142,7 +134,6 @@ function modifyProject(e) {
 
     // Populate project-list 
     populateProjList(projects, projectList);
-
 }
 
 // Load new project component

@@ -93,8 +93,8 @@ function refreshTaskpage() {
         return `
             <div class="task">
                 <div class='task-description'>${task.description}</div>
-                <div class='task-priority'>${task.priority}</div>
                 <div class='task-dueDate'>${task.dueDate}</div>
+                <i class='fas fa-trash-alt delete-icon'></i>
             </div>
         `
     }).join('');
@@ -104,7 +104,38 @@ function loadTaskList() {
     const taskList = document.createElement('div');
     taskList.classList.add('task-list');
 
+    // Add click feature
+    taskList.addEventListener('click', (e) => {
+        if (e.target.matches('i')) deleteTask(e);
+    });
+
     return taskList;
+}
+
+function deleteTask(e) {
+    const task = e.target.parentNode;
+    const taskName = task.querySelector('.task-description').innerHTML;
+
+    // Check if default or user-input project
+    const project = document.querySelector('.active');
+    const projectSub = project.querySelector('.project-name');
+    const projectName = projectSub.innerHTML;
+    const type = projectSub.classList.contains('default') ? 'default' : 'projects';
+
+    // Grab project from LocalStorage
+    const projects = JSON.parse(localStorage.getItem(type)) || [];
+    const projectContents = projects.find(project => project.name == projectName);
+    const projectIndex = projects.findIndex(project => project.name == projectName);
+    const taskIndex = projectContents.tasks.findIndex(content => content.description == taskName)
+    
+    // Delete task in project 
+    projectContents.tasks.splice(taskIndex, 1);
+
+    // Update project in localStorage
+    projects.splice(projectIndex, 1, projectContents)
+    localStorage.setItem(type, JSON.stringify(projects));
+
+    refreshTaskpage();
 }
 
 

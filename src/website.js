@@ -93,8 +93,8 @@ function refreshTaskpage() {
         return `
             <div class="task">
                 <div class='task-description'>${task.description}</div>
-                <div class='task-priority'>${task.priority}</div>
                 <div class='task-dueDate'>${task.dueDate}</div>
+                <i class='fas fa-trash-alt delete-icon'></i>
             </div>
         `
     }).join('');
