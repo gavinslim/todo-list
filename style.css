@@ -15,6 +15,8 @@
     --header-font: 20px;
     --body-font: 14px;
     --icon-font: calc(var(--body-font) + 4px);
+
+    --task-height: 48px;
 }
 
 body {
@@ -274,7 +276,7 @@ body {
 
     cursor: pointer;
 
-    height: 58px;
+    height: var(--task-height);
     padding-left: 12px;
     margin-left: 12px;
     margin-right: 12px;
@@ -286,10 +288,10 @@ body {
     border-radius: 4px;
 }
 
-.plus-icon {
+.plus-icon, .circle-icon {
     cursor: pointer;
     font-size: var(--icon-font);
-    color: var(--secondary-grey);
+    color: var(--primary-blue);
     margin-left: 4px;
 }
 
@@ -303,7 +305,6 @@ body {
     margin-right: 16px;
     text-indent: 10px;
     color: var(--primary-dark);
-    /* border: 1px solid black; */
 }
 
 #new-task-input::placeholder {
@@ -319,9 +320,63 @@ body {
     border-bottom: 1px solid var(--primary-blue);
 }
 
+/* Task List */
+.task-list {
+    display: flex;
+    flex-direction: column;
+
+    margin-left: 12px;
+    margin-right: 12px;
+
+    /* border: 1px solid black; */
+    background-color: transparent;
+}
+
 .task {
     display: flex;
-    
+    justify-content: flex-start;
+    align-items: center;
+    height: var(--task-height);
+    padding-left: 12px;
+
+    position: relative;
+
+    font-size: var(--body-font);
+    color: var(--primary-dark);
+    gap: 20px;
+    border: 1px solid transparent;
+    border-bottom: 1px solid var(--tertiary-grey);
+}
+
+.task:hover {
+    background-color: var(--primary-grey);
+    border-radius: 4px;
+}
+
+.task:hover .delete-icon {
+    visibility: visible;
+    position: absolute;
+    right: 20px;
+}
+
+.task-dueDate {
+    cursor: pointer;
+    visibility: hidden;
+
+    position: absolute;
+    right: 60px;
+}
+
+.task-dueDate.active, .input-date.active {
+    visibility: visible;
+}
+
+.input-date {
+    visibility: hidden;
+    border: 1px solid black;
+    position: absolute;
+    right: 60px;   
+    background-color: transparent;
 }
 
 #footer {
