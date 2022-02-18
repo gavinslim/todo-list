@@ -90,10 +90,14 @@ function refreshTaskpage() {
     const index = projects.findIndex(storedProject => storedProject.name == project.innerHTML);
 
     taskList.innerHTML = projects[index].tasks.map(task => {
+        const taskClass = task.dueDate == 'No Date' ? 'task-dueDate active' : 'task-dueDate';
+
         return `
             <div class="task">
+                <i class="far fa-circle circle-icon"></i>
                 <div class='task-description'>${task.description}</div>
-                <div class='task-dueDate'>${task.dueDate}</div>
+                <div class='${taskClass}'>${task.dueDate}</div>
+                <input type="date" class="input-date">
                 <i class='fas fa-trash-alt delete-icon'></i>
             </div>
         `

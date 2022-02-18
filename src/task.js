@@ -1,6 +1,6 @@
 export default (description) => {
     var description = description;
-    var dueDate = null;
+    var dueDate = 'No Date';
     var isComplete = false;
 
     const getDescription = () => {

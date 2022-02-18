@@ -1,4 +1,5 @@
 import Task from './task.js';
+import {format, compareAsc} from 'date-fns';
 
 function initTaskpage() {
     const taskPage = document.createElement('div');
@@ -90,14 +91,18 @@ function refreshTaskpage() {
     const index = projects.findIndex(storedProject => storedProject.name == project.innerHTML);
 
     taskList.innerHTML = projects[index].tasks.map(task => {
+        const taskClass = task.dueDate == 'No Date' ? 'task-dueDate active' : 'task-dueDate';
         return `
             <div class="task">
+                <i class="far fa-circle circle-icon"></i>
                 <div class='task-description'>${task.description}</div>
-                <div class='task-dueDate'>${task.dueDate}</div>
+                <div class='${taskClass}'>${task.dueDate}</div>
+                <input type="date" class="input-date">
                 <i class='fas fa-trash-alt delete-icon'></i>
             </div>
         `
     }).join('');
+    console.log(taskList.innerHTML);
 }
 
 function loadTaskList() {
@@ -107,6 +112,8 @@ function loadTaskList() {
     // Add click feature
     taskList.addEventListener('click', (e) => {
         if (e.target.matches('i')) deleteTask(e);
+        if (e.target.matches('input') || e.target.classList.contains('task-dueDate')) setDueDate(e);
+        
     });
 
     return taskList;
@@ -138,5 +145,18 @@ function deleteTask(e) {
     refreshTaskpage();
 }
 
+function setDueDate(e) {
+    const taskContainer = e.target.parentNode;
+    const dueDate = taskContainer.querySelector('.task-dueDate');
+    const inputDate = taskContainer.querySelector('.input-date');
+
+    if (e.target.matches('input')) {
+        // dueDate.classList.add('active');
+        // inputDate.classList.remove('active');     
+    } else {
+        dueDate.classList.remove('active');
+        inputDate.classList.add('active');
+    }
+}
 
 export default initTaskpage;
