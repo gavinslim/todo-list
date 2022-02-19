@@ -94,6 +94,7 @@ function addTaskToProject() {
 }
 
 export function refreshTaskpage() {
+    console.log('refresh');
     const activeProject = document.querySelector('.active');
     const project = activeProject.querySelector('.project-name');
     const taskList = document.querySelector('.task-list');
@@ -161,6 +162,8 @@ function changeDueDateStorage(task, dueDate) {
     projectContents.tasks[taskIndex].dueDate = dueDate;
     projects.splice(projectIndex, 1, projectContents)
     localStorage.setItem(type, JSON.stringify(projects));
+
+    refreshTaskpage();
 }
 
 // Set task due date
