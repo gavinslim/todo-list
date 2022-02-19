@@ -1,5 +1,5 @@
 import initSidebar from './sidebar.js';
-import initTaskpage from './taskpage.js';
+import {initTaskpage, refreshTaskpage} from './taskpage.js';
 
 // Initialize header
 function initHeader() {
@@ -78,30 +78,6 @@ function initWebpage() {
     initHeader();
     initMain();
     refreshTaskpage();
-}
-
-function refreshTaskpage() {
-    const activeProject = document.querySelector('.active');
-    const project = activeProject.querySelector('.project-name');
-    const taskList = document.querySelector('.task-list');
-    const type = project.classList.contains('default') ? 'default' : 'projects';
-
-    const projects = JSON.parse(localStorage.getItem(type)) || [];
-    const index = projects.findIndex(storedProject => storedProject.name == project.innerHTML);
-
-    taskList.innerHTML = projects[index].tasks.map(task => {
-        const taskClass = task.dueDate == 'No Date' ? 'task-dueDate active' : 'task-dueDate';
-
-        return `
-            <div class="task">
-                <i class="far fa-circle circle-icon"></i>
-                <div class='task-description'>${task.description}</div>
-                <div class='${taskClass}'>${task.dueDate}</div>
-                <input type="date" class="input-date">
-                <i class='fas fa-trash-alt delete-icon'></i>
-            </div>
-        `
-    }).join('');
 }
 
 export default initWebpage;

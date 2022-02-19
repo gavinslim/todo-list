@@ -31,8 +31,9 @@ function addDefaultToStorage(defaultList, name, icon, activate = false) {
 
     // Check if project exists in localStorage
     const found = defaults.some(project => project.name === name);
+    
+    // Add to storage
     if (!found) {
-        // Add to storage
         const project = Project(name);
         defaults.push(project.toJSON());  
         localStorage.setItem('default', JSON.stringify(defaults));    
@@ -92,19 +93,33 @@ function populateTaskpage(e) {
 }
 
 function populateTaskList(project, taskList) {
-    taskList.innerHTML = project.tasks.map(task => {
-        const taskClass = task.dueDate == 'No Date' ? 'task-dueDate active' : 'task-dueDate';
-        
+    taskList.innerHTML = project.tasks.map(task => {        
         return `
-            <div class="task">
-                <i class="far fa-circle circle-icon"></i>
-                <div class='task-description'>${task.description}</div>
-                <div class='${taskClass}'>${task.dueDate}</div>
-                <input type="date" class="input-date">
-                <i class='fas fa-trash-alt delete-icon'></i>
-            </div>
+        <div class="task">
+            <i class="far fa-circle circle-icon"></i>
+            <div class='task-description'>${task.description}</div>
+            <div class='task-dueDate active'>${task.dueDate}</div>
+            <input type="date" class="input-date" name="date">
+            <i class='fas fa-trash-alt delete-icon'></i>
+        </div>
         `
     }).join('');
+
+    // Add onChange function to input date    
+    const dateInputs = document.querySelectorAll('.input-date');
+    dateInputs.forEach(dateInput => {
+        dateInput.addEventListener('change', (e) => {
+        const task = e.target.parentNode;
+
+        const dueDate = task.querySelector('.task-dueDate');
+        const inputDate = task.querySelector('.input-date');
+
+        dueDate.innerHTML = e.target.value;
+
+        dueDate.classList.add('active');
+        inputDate.classList.remove('active');
+        });
+    });
 }
 
 // Remove active class from selector
@@ -129,11 +144,6 @@ function modifyProject(e) {
     if (classList.contains('delete-icon')) {
         projects.splice(index, 1);
         localStorage.setItem('projects', JSON.stringify(projects));
-    }
-
-    // Edit project
-    if (classList.contains('edit-icon')) {
-
     }
 
     // Populate project-list 
@@ -225,7 +235,6 @@ function populateProjList(projects = [], projectList) {
                     <div class='project-name'>${project.name}</div>
                 </div>
                 <div class='project-right'>
-                    <i class='fas fa-pencil-alt edit-icon'></i>
                     <i class='fas fa-trash-alt delete-icon'></i>
                 </div>
             </div>
