@@ -14,13 +14,13 @@ The goal of this project was to create a functional To-Do page using various tec
 
 ## Live Demo
 
-[Tp Do List](http://gavinslim.com/todo-list/) :ballot_box_with_check:
+[To-Do List](http://gavinslim.com/todo-list/) :ballot_box_with_check:
 
 ## Setup
 
 1. Clone the repository:<br>```git clone https://github.com/gavinslim/todo-list.git```
 
-2. Inside the cloned repo, install the required dependencies:<br>```npm build```
+2. Inside the cloned repo, install the required dependencies:<br>```npm install```
 
 3. Initiate live demo:<br>```npm run start```
 
