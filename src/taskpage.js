@@ -14,6 +14,7 @@ export function initTaskpage() {
 function loadTaskHeader() {
     const taskHeader = document.createElement('div');
     taskHeader.setAttribute('id', 'task-header');
+    taskHeader.classList.add('disable-select');
     taskHeader.innerHTML = 'Tasks';
     return taskHeader;
 }
