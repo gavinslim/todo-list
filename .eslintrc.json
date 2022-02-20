@@ -11,6 +11,11 @@
         "sourceType": "module"
     },
     "rules": {
-        "js": "always"
+        "js": "always",
+        "no-console": "off",
+        "quotes": [
+            "error",
+            "double"
+        ]
     }
 }
