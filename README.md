@@ -4,7 +4,7 @@
 
 Implementation of the To-Do list project from The Odin Project [curriculum](https://www.theodinproject.com/)
 
-The goal of this project was to create a functional To-Do page using various techniques including webpack, and factory functions.
+The goal of this project was to create a functional To-Do page using various techniques including localStorage, webpack, modules, and factory functions.
 
 ## Built With
 
